@@ -51,8 +51,10 @@ namespace WebStore.Infrastructure.Implementations
 
                 _db.Orders.Add(order);
 
-                foreach (var (product_model, quantity) in CartModel.Items)
+                foreach (var item in CartModel.Items)
                 {
+                    var product_model = item.Key;
+                    var quantity = item.Value;
                     var product = _db.Products.FirstOrDefault(p => p.Id == product_model.Id);
                     if(product is null)
                         throw new InvalidOperationException($"Товар с идентификатором {product_model.Id} в базе данных не найден");
