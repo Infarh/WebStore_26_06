@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL.Context;
-using WebStore.Data;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Models;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.Filters;
-using WebStore.Infrastructure.Implementations;
-using WebStore.Infrastructure.Interfaces;
-using WebStore.Models;
+using WebStore.Interfaces.Services;
+using WebStore.Services;
+using WebStore.Services.Data;
 
 namespace WebStore
 {

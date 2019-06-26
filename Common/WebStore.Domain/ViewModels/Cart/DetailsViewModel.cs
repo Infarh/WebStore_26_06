@@ -1,4 +1,6 @@
-﻿namespace WebStore.ViewModels
+﻿using WebStore.Domain.ViewModels.Order;
+
+namespace WebStore.Domain.ViewModels.Cart
 {
     public class DetailsViewModel
     {

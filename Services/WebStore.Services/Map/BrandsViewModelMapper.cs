@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Domain.Entities;
-using WebStore.ViewModels;
+﻿using WebStore.Domain.Entities;
+using WebStore.Domain.ViewModels.Product;
 
-namespace WebStore.Infrastructure.Map
+namespace WebStore.Services.Map
 {
     public static class BrandsViewModelMapper
     {
