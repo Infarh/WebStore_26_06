@@ -15,11 +15,11 @@ namespace WebStore.Services.SQL
         public SqlProductData(WebStoreContext DB) => _db = DB;
 
         public IEnumerable<Section> GetSections() => _db.Sections
-            .Include(s => s.Products)
+            //.Include(s => s.Products)
             .AsEnumerable();
 
         public IEnumerable<Brand> GetBrands() => _db.Brands
-            .Include(brand => brand.Products)
+            //.Include(brand => brand.Products)
             .AsEnumerable();
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
