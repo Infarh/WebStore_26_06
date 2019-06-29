@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using WebStore.Domain.Entities.Base;
 using WebStore.Domain.Entities.Base.Interfaces;
 
-namespace WebStore.Domain.Entities
+namespace WebStore.Domain.Entities.Products
 {
     /// <summary>Секция товаров</summary>
     [Table("Sections")]

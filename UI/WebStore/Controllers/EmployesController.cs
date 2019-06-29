@@ -33,7 +33,7 @@ namespace WebStore.Controllers
             return View("EmployeeView", employe);
         }
 
-        [Authorize(Roles = Domain.Entities.User.RoleAdmin)]
+        [Authorize(Roles = Domain.Entities.Identity.User.RoleAdmin)]
         public IActionResult Edit(int? id)
         {
             Employee employee;
@@ -52,7 +52,7 @@ namespace WebStore.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = Domain.Entities.User.RoleAdmin)]
+        [Authorize(Roles = Domain.Entities.Identity.User.RoleAdmin)]
         public IActionResult Edit(Employee employee, [FromServices] IMapper mapper)
         {
             if(employee.Age < 18)
@@ -88,7 +88,7 @@ namespace WebStore.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = Domain.Entities.User.RoleAdmin)]
+        [Authorize(Roles = Domain.Entities.Identity.User.RoleAdmin)]
         public IActionResult Delete(int id)
         {
             var employee = _EmployeesData.GetById(id);

@@ -1,25 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.Clients.Values;
 using WebStore.DAL.Context;
-using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Models;
-using WebStore.Infrastructure.Conventions;
-using WebStore.Infrastructure.Filters;
 using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
 using WebStore.Services;
 using WebStore.Services.Data;
+using WebStore.Services.InMemory;
+using WebStore.Services.SQL;
 
 namespace WebStore
 {
@@ -32,7 +28,7 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebStoreContext>(options => 
+            services.AddDbContext<WebStoreContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConection")));
             services.AddTransient<WebStoreContextInitializer>();
 

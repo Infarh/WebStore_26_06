@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Products;
 using WebStore.Domain.ViewModels.Product;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Map;

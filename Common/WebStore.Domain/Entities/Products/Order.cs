@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using WebStore.Domain.Entities.Base;
+using WebStore.Domain.Entities.Identity;
 
-namespace WebStore.Domain.Entities
+namespace WebStore.Domain.Entities.Products
 {
     public class Order : NamedEntity
     {

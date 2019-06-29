@@ -2,19 +2,16 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
-using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Products;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Services
+namespace WebStore.Services.SQL
 {
     public class SqlProductData : IProductData
     {
         private readonly WebStoreContext _db;
 
-        public SqlProductData(WebStoreContext DB)
-        {
-            _db = DB;
-        }
+        public SqlProductData(WebStoreContext DB) => _db = DB;
 
         public IEnumerable<Section> GetSections() => _db.Sections
             .Include(s => s.Products)

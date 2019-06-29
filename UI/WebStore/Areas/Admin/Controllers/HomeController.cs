@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Products;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.Areas.Admin.Controllers
 {
-    [Area("Admin"), Authorize(Roles = Domain.Entities.User.RoleAdmin)]
+    [Area("Admin"), Authorize(Roles = Domain.Entities.Identity.User.RoleAdmin)]
     public class HomeController : Controller
     {
         private readonly IProductData _ProductData;

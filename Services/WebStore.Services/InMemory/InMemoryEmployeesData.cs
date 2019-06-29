@@ -4,7 +4,7 @@ using System.Linq;
 using WebStore.Domain.Models;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Services
+namespace WebStore.Services.InMemory
 {
     public class InMemoryEmployeesData : IEmployeesData
     {
@@ -24,7 +24,6 @@ namespace WebStore.Services
             if (employee is null) throw new ArgumentNullException(nameof(employee));
 
             if (_Employes.Contains(employee) || _Employes.Any(e => e.Id == employee.Id)) return;
-
             employee.Id = _Employes.Count == 0 ? 1 : _Employes.Max(e => e.Id) + 1;
             _Employes.Add(employee);
         }

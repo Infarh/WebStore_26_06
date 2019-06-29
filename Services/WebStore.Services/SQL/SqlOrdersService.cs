@@ -4,12 +4,13 @@ using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
-using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Identity;
+using WebStore.Domain.Entities.Products;
 using WebStore.Domain.ViewModels.Cart;
 using WebStore.Domain.ViewModels.Order;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Services
+namespace WebStore.Services.SQL
 {
     public class SqlOrdersService : IOrderService
     {
@@ -29,10 +30,7 @@ namespace WebStore.Services
                 .Where(order => order.User.UserName == UserName)
                 .ToArray();
 
-        public Order GetOrderById(int id)
-        {
-            return _db.Orders.Include(o => o.OrderItems).FirstOrDefault(o => o.Id == id);
-        }
+        public Order GetOrderById(int id) => _db.Orders.Include(o => o.OrderItems).FirstOrDefault(o => o.Id == id);
 
         public Order CreateOrder(OrderViewModel OrderModel, CartViewModel CartModel, string UserName)
         {
@@ -56,7 +54,7 @@ namespace WebStore.Services
                     var product_model = item.Key;
                     var quantity = item.Value;
                     var product = _db.Products.FirstOrDefault(p => p.Id == product_model.Id);
-                    if(product is null)
+                    if (product is null)
                         throw new InvalidOperationException($"Товар с идентификатором {product_model.Id} в базе данных не найден");
 
                     var order_item = new OrderItem

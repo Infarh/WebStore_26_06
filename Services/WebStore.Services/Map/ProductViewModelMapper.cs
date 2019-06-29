@@ -1,4 +1,5 @@
 ﻿using WebStore.Domain.Entities;
+using WebStore.Domain.Entities.Products;
 using WebStore.Domain.ViewModels.Product;
 
 namespace WebStore.Services.Map
