@@ -16,9 +16,9 @@ namespace WebStore.Clients.Base
 
         protected readonly string _ServiceAddress;
 
-        protected BaseClient(IConfiguration Configuration, string _ServiceAddress)
+        protected BaseClient(IConfiguration Configuration, string ServiceAddress)
         {
-            _ServiceAddress = _ServiceAddress;
+            _ServiceAddress = ServiceAddress;
 
             _Client = new HttpClient { BaseAddress = new Uri(Configuration["ClientAddress"]) };
 
