@@ -28,11 +28,25 @@ namespace WebStore.Services.InMemory
             _Employes.Add(employee);
         }
 
+        public Employee Update(int id, Employee employee)
+        {
+            if(employee is null) throw new ArgumentNullException(nameof(employee));
+
+            var db_employe = GetById(id);
+            if (db_employe is null) throw new InvalidOperationException($"Сотрудник с id {id} не найден");
+
+            db_employe.FirstName = employee.FirstName;
+            db_employe.SurName = employee.SurName;
+            db_employe.Patronymic = employee.Patronymic;
+            db_employe.Age = employee.Age;
+
+            return db_employe;
+        }
+
         public void Delete(int id)
         {
             var employee = GetById(id);
             if (employee is null) return;
-            //if(ReferenceEquals(employee, null)) return;
             _Employes.Remove(employee);
         }
 

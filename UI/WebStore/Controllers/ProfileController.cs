@@ -28,10 +28,9 @@ namespace WebStore.Controllers
             return View(orders.Select(order => new UserOrderViewModel
             {
                 Id = order.Id,
-                Name = order.Name,
                 Address = order.Address,
                 Phone = order.Phone,
-                TotalSum = order.OrderItems.Sum(o => o.Quantity * o.Price)
+                TotalSum = order.OrderItem.Sum(o => o.Quantity * o.Price)
             }));
         }
     }
