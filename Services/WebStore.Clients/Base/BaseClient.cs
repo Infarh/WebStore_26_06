@@ -10,15 +10,15 @@ using Microsoft.Extensions.Primitives;
 
 namespace WebStore.Clients.Base
 {
-    public abstract class BaseClient
+    public abstract class BaseClient : IDisposable
     {
         protected readonly HttpClient _Client;
 
         protected readonly string _ServiceAddress;
 
-        protected BaseClient(IConfiguration Configuration, string ServiceAddress)
+        protected BaseClient(IConfiguration Configuration, string _ServiceAddress)
         {
-            _ServiceAddress = ServiceAddress;
+            _ServiceAddress = _ServiceAddress;
 
             _Client = new HttpClient { BaseAddress = new Uri(Configuration["ClientAddress"]) };
 
@@ -56,5 +56,7 @@ namespace WebStore.Clients.Base
         }
 
         protected HttpResponseMessage Delete(string url) => DeleteAsync(url).Result;
+
+        public void Dispose() => _Client.Dispose();
     }
 }
