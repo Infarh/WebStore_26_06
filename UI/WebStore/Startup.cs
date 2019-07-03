@@ -36,15 +36,23 @@ namespace WebStore
             services.AddTransient<WebStoreContextInitializer>();
 
             services.AddSingleton<IEmployeesData, EmployeesClient>();
-            //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            //services.AddSingleton<IProductData, InMemoryProductData>();
             services.AddScoped<IProductData, ProductsClient>();
-            //services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<ICartService, CookieCartService>();
-            //services.AddScoped<IOrderService, SqlOrdersService>();
             services.AddScoped<IOrderService, OrdersClient>();
 
             services.AddTransient<IValuesService, ValuesClient>();
+
+            /*
+             
+            IUserRoleStore<User>,   
+            IUserClaimStore<User>, 
+            IUserPasswordStore<User>, 
+            IUserTwoFactorStore<User>, 
+            IUserEmailStore<User>, 
+            IUserPhoneNumberStore<User>, 
+            IUserLoginStore<User>, 
+            IUserLockoutStore<User> 
+             */
 
             services.AddIdentity<User, IdentityRole>(options =>
                 {

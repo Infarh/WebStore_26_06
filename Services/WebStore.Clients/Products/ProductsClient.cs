@@ -12,11 +12,13 @@ namespace WebStore.Clients.Products
 {
     public class ProductsClient : BaseClient, IProductData
     {
-        public ProductsClient(IConfiguration Configuration) : base(Configuration, "api/products") { }
+        public ProductsClient(IConfiguration Configuration) 
+            : base(Configuration, "api/products") { }
 
         public IEnumerable<Section> GetSections()
         {
-            return Get<List<Section>>($"{_ServiceAddress}/sections");
+            var sections = Get<List<Section>>($"{_ServiceAddress}/sections");
+            return sections;
         }
 
         public IEnumerable<Brand> GetBrands()
