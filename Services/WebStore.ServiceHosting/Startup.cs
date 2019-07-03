@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,6 +54,9 @@ namespace WebStore.ServiceHosting
             services.AddSwaggerGen(opt =>
             {
                 opt.SwaggerDoc("v1", new Info { Title = "WebStore.API", Version = "v1" });
+                var xml_file = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xml_path = Path.Combine(AppContext.BaseDirectory, xml_file);
+                opt.IncludeXmlComments(xml_path);
             });
         }
 
