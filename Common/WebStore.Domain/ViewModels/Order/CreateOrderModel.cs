@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WebStore.Domain.ViewModels.Order;
+using WebStore.Domain.DTO.Order;
 
-namespace WebStore.Domain.DTO.Order
+namespace WebStore.Domain.ViewModels.Order
 {
     public class CreateOrderModel
     {
