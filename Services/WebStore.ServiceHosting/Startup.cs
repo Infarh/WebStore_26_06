@@ -23,6 +23,8 @@ using WebStore.Services.Data;
 using WebStore.Services.InMemory;
 using WebStore.Services.SQL;
 
+using WebStore.Logger;
+
 namespace WebStore.ServiceHosting
 {
     public class Startup
@@ -42,6 +44,22 @@ namespace WebStore.ServiceHosting
                .AddEntityFrameworkStores<WebStoreContext>()
                .AddDefaultTokenProviders();
 
+            services.Configure<IdentityOptions>(cfg =>
+            {
+                cfg.Password.RequiredLength = 3;
+                cfg.Password.RequireDigit = false;
+                cfg.Password.RequireLowercase = false;
+                cfg.Password.RequireUppercase = false;
+                cfg.Password.RequireNonAlphanumeric = false;
+                cfg.Password.RequiredUniqueChars = 3;
+
+                cfg.Lockout.MaxFailedAccessAttempts = 10;
+                cfg.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                cfg.Lockout.AllowedForNewUsers = true;
+
+                cfg.User.RequireUniqueEmail = false; // грабли!
+            });
+
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
 
             services.AddScoped<IProductData, SqlProductData>();
@@ -54,14 +72,20 @@ namespace WebStore.ServiceHosting
             services.AddSwaggerGen(opt =>
             {
                 opt.SwaggerDoc("v1", new Info { Title = "WebStore.API", Version = "v1" });
-                var xml_file = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xml_path = Path.Combine(AppContext.BaseDirectory, xml_file);
-                opt.IncludeXmlComments(xml_path);
+                //var xml_file = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xml_path = Path.Combine(AppContext.BaseDirectory, xml_file);
+                //opt.IncludeXmlComments(xml_path);
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, WebStoreContextInitializer db)
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            WebStoreContextInitializer db,
+            ILoggerFactory log)
         {
+            log.AddLog4Net();
+
             db.InitializeAsync().Wait();
 
             if (env.IsDevelopment())

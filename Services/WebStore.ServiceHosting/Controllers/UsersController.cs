@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +26,7 @@ namespace WebStore.ServiceHosting.Controllers
         public UsersController(WebStoreContext DB, ILogger<UsersController> Logger)
         {
             _Logger = Logger;
-            _UserStore = new UserStore<User>(DB)
-            {
-                AutoSaveChanges = true
-            };
+            _UserStore = new UserStore<User>(DB) { AutoSaveChanges = true };
         }
 
         #region Users
@@ -59,7 +55,7 @@ namespace WebStore.ServiceHosting.Controllers
         public async Task<bool> CreateAsync([FromBody] User user)
         {
             var result = await _UserStore.CreateAsync(user);
-            if(result.Succeeded)
+            if (result.Succeeded)
                 _Logger.LogInformation("Пользователь {0} успешно создан", user.UserName);
             else
                 _Logger.LogWarning("При создании нового пользователя {0} возникли ошибки: {1}",

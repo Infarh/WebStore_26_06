@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
@@ -71,10 +73,18 @@ namespace WebStore.Services.Data
         private async Task InitializeIdentityAsync()
         {
             if (!await _RoleManager.RoleExistsAsync(User.RoleUser))
-                await _RoleManager.CreateAsync(new IdentityRole(User.RoleUser));
+            {
+                var creation_result = await _RoleManager.CreateAsync(new IdentityRole(User.RoleUser));
+                if (!creation_result.Succeeded)
+                    throw new InvalidOperationException($"Ошибка создания роли пользователя {string.Join(", ", creation_result.Errors.Select(error => error.Description))}");
+            }
 
             if (!await _RoleManager.RoleExistsAsync(User.RoleAdmin))
-                await _RoleManager.CreateAsync(new IdentityRole(User.RoleAdmin));
+            {
+                var creation_result = await _RoleManager.CreateAsync(new IdentityRole(User.RoleAdmin));
+                if (!creation_result.Succeeded)
+                    throw new InvalidOperationException($"Ошибка создания роли администратора {string.Join(", ", creation_result.Errors.Select(error => error.Description))}");
+            }
 
             if (await _UserManager.FindByNameAsync(User.AdminUserName) == null)
             {
@@ -88,6 +98,8 @@ namespace WebStore.Services.Data
 
                 if (creation_result.Succeeded)
                     await _UserManager.AddToRoleAsync(admin, User.RoleAdmin);
+                else
+                    throw new InvalidOperationException($"Ошибка создания пользователя администратора: {string.Join(", ", creation_result.Errors.Select(error => error.Description))}");
             }
         }
     }
