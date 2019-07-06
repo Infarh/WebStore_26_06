@@ -14,11 +14,11 @@ namespace WebStore
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((host, log) =>
-                {
-                    log.AddFilter<ConsoleLoggerProvider>("System", LogLevel.Error);
-                    log.AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Error);
-                })
+                //.ConfigureLogging((host, log) =>
+                //{
+                //    log.AddFilter<ConsoleLoggerProvider>("System", LogLevel.Error);
+                //    log.AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Error);
+                //})
                 //.UseUrls("http://0.0.0.0:8080")
                 .UseStartup<Startup>();
     }
