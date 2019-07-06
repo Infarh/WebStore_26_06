@@ -94,7 +94,8 @@ namespace WebStore.Clients.Users
 
         public async Task<User> FindByNameAsync(string name, CancellationToken cancel)
         {
-            return await GetAsync<User>($"{_ServiceAddress}/User/Normal/{name}", cancel);
+            var user = await GetAsync<User>($"{_ServiceAddress}/User/Normal/{name}", cancel);
+            return user;
         }
 
         #endregion

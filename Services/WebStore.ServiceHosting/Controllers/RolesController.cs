@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +15,7 @@ namespace WebStore.ServiceHosting.Controllers
     {
         private readonly RoleStore<IdentityRole> _RoleStore;
 
-        public RolesController(WebStoreContext DB)
-        {
-            _RoleStore = new RoleStore<IdentityRole>(DB){ AutoSaveChanges = true };
-        }
+        public RolesController(WebStoreContext DB) => _RoleStore = new RoleStore<IdentityRole>(DB) { AutoSaveChanges = true };
 
         [HttpGet("AllRoles")]
         public async Task<IEnumerable<IdentityRole>> GetAllRoles() => await _RoleStore.Roles.ToArrayAsync();
