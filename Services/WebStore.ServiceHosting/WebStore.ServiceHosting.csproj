@@ -5,11 +5,11 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
-    <StartupObject />
+    <StartupObject>WebStore.ServiceHosting.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>WebStore.ServiceHosting.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

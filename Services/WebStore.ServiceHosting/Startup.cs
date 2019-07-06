@@ -54,9 +54,9 @@ namespace WebStore.ServiceHosting
             services.AddSwaggerGen(opt =>
             {
                 opt.SwaggerDoc("v1", new Info { Title = "WebStore.API", Version = "v1" });
-                var xml_file = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xml_path = Path.Combine(AppContext.BaseDirectory, xml_file);
-                opt.IncludeXmlComments(xml_path);
+                //var xml_file = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xml_path = Path.Combine(AppContext.BaseDirectory, xml_file);
+                //opt.IncludeXmlComments(xml_path);
             });
         }
 
