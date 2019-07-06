@@ -10,7 +10,11 @@ namespace WebStore.Controllers
     public class HomeController : Controller
     {
         //[ActionFilterAsync]
-        public IActionResult Index() => View();
+        public IActionResult Index()
+        {
+            //throw new ApplicationException("Тестовое исключение");
+            return View();
+        }
 
         public IActionResult ContactUs() => View();
 

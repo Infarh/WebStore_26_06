@@ -15,6 +15,7 @@ using WebStore.Clients.Values;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Models;
+using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
 using WebStore.Services;
@@ -142,6 +143,8 @@ namespace WebStore
             //app.UseWelcomePage("/Welcome");
 
             app.UseAuthentication();
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             //app.UseMvcWithDefaultRoute(); // "default" : "{controller=Home}/{action=Index}/{id?}"
             app.UseMvc(route =>
