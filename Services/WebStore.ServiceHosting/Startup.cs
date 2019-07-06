@@ -23,6 +23,8 @@ using WebStore.Services.Data;
 using WebStore.Services.InMemory;
 using WebStore.Services.SQL;
 
+using WebStore.Logger;
+
 namespace WebStore.ServiceHosting
 {
     public class Startup
@@ -60,8 +62,14 @@ namespace WebStore.ServiceHosting
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, WebStoreContextInitializer db)
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            WebStoreContextInitializer db,
+            ILoggerFactory log)
         {
+            log.AddLog4Net();
+
             db.InitializeAsync().Wait();
 
             if (env.IsDevelopment())
