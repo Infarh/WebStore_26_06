@@ -40,7 +40,8 @@ namespace WebStore
 
             services.AddSingleton<IEmployeesData, EmployeesClient>();
             services.AddScoped<IProductData, ProductsClient>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICartStore, CookiesCartStore>();
             services.AddScoped<IOrderService, OrdersClient>();
 
             services.AddTransient<IValuesService, ValuesClient>();
@@ -119,12 +120,7 @@ namespace WebStore
             services.AddAutoMapper(opt =>
             {
                 opt.CreateMap<Employee, Employee>();
-            });
-
-            //AutoMapper.Mapper.Initialize(opt =>
-            //{
-            //    opt.CreateMap<Employee, Employee>();
-            //});
+            }, AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory log)
