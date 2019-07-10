@@ -119,12 +119,7 @@ namespace WebStore
             services.AddAutoMapper(opt =>
             {
                 opt.CreateMap<Employee, Employee>();
-            });
-
-            //AutoMapper.Mapper.Initialize(opt =>
-            //{
-            //    opt.CreateMap<Employee, Employee>();
-            //});
+            }, AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory log)
