@@ -31,7 +31,7 @@
             {
                 from_type = BreadCrumbsType.Brand;
             }
-            id = int.Parse(Context.Request.Query["id"].ToString());
+            id = int.Parse(ViewContext.RouteData.Values["id"].ToString());
             break;
         default:
             throw new ArgumentOutOfRangeException();

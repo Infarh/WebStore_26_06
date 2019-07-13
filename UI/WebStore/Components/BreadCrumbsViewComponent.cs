@@ -52,8 +52,7 @@ namespace WebStore.Components
                     });
 
                 case BreadCrumbsType.Item:
-                    View(GetItemBreadCrumbs(id, FromType, Type));
-                    break;
+                    return View(GetItemBreadCrumbs(id, FromType, Type));
             }
 
             return View(new BreadCrumbsViewModel[0]);
