@@ -4,6 +4,7 @@ using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities.Products;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Data;
+using WebStore.Services.Map;
 
 namespace WebStore.Services.InMemory
 {
@@ -17,60 +18,14 @@ namespace WebStore.Services.InMemory
         {
             IEnumerable<Product> products = TestData.Products;
             if (Filter is null)
-                return products.Select(p => new ProductDTO
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Order = p.Order,
-                    Price = p.Price,
-                    ImageUrl = p.ImageUrl,
-                    Brand = p.Brand is null
-                    ? null
-                    : new BrandDTO
-                    {
-                        Id = p.Brand.Id,
-                        Name = p.Brand.Name
-                    }
-                });
+                return products.Select(ProductProductDTO.ToDTO);
             if (Filter.BrandId != null)
                 products = products.Where(product => product.BrandId == Filter.BrandId);
             if (Filter.SectionId != null)
                 products = products.Where(product => product.SectionId == Filter.SectionId);
-            return products.Select(p => new ProductDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Order = p.Order,
-                Price = p.Price,
-                ImageUrl = p.ImageUrl,
-                Brand = p.Brand is null
-                    ? null
-                    : new BrandDTO
-                    {
-                        Id = p.Brand.Id,
-                        Name = p.Brand.Name
-                    }
-            });
+            return products.Select(ProductProductDTO.ToDTO);
         }
 
-        public ProductDTO GetProductById(int id)
-        {
-            var p = TestData.Products.FirstOrDefault(product => product.Id == id);
-            return p is null ? null : new ProductDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Order = p.Order,
-                Price = p.Price,
-                ImageUrl = p.ImageUrl,
-                Brand = p.Brand is null
-                    ? null
-                    : new BrandDTO
-                    {
-                        Id = p.Brand.Id,
-                        Name = p.Brand.Name
-                    }
-            };
-        }
+        public ProductDTO GetProductById(int id) => TestData.Products.FirstOrDefault(product => product.Id == id)?.ToDTO();
     }
 }
