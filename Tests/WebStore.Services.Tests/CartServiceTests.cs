@@ -134,6 +134,7 @@ namespace WebStore.Services.Tests
             Assert.Empty(cart.Items);
         }
 
+        [TestMethod]
         public void CartService_Decrement_Correct()
         {
             const int item_id = 1;
@@ -190,7 +191,7 @@ namespace WebStore.Services.Tests
         }
 
         [TestMethod]
-        public void CartService_TRansformCart_WorksCorrect()
+        public void CartService_TransformCart_WorksCorrect()
         {
             var cart = new Cart
             {

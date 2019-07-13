@@ -23,6 +23,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\" />
+    <Folder Include="TagHelpers\" />
   </ItemGroup>
 
   <ItemGroup>
