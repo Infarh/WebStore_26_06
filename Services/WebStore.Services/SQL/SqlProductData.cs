@@ -23,6 +23,10 @@ namespace WebStore.Services.SQL
             //.Include(brand => brand.Products)
             .AsEnumerable();
 
+        public Section GetSectionById(int id) => _db.Sections.FirstOrDefault(s => s.Id == id);
+
+        public Brand GetBrandById(int id) => _db.Brands.FirstOrDefault(b => b.Id == id);
+
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {
             IQueryable<Product> products = _db.Products;

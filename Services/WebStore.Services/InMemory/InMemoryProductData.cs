@@ -13,6 +13,9 @@ namespace WebStore.Services.InMemory
         public IEnumerable<Section> GetSections() => TestData.Sections;
 
         public IEnumerable<Brand> GetBrands() => TestData.Brands;
+        public Section GetSectionById(int id) => TestData.Sections.FirstOrDefault(s => s.Id == id);
+
+        public Brand GetBrandById(int id) => TestData.Brands.FirstOrDefault(b => b.Id == id);
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {
