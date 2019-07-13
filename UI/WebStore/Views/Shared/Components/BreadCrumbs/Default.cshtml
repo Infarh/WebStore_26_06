@@ -7,7 +7,6 @@
         <li><a asp-controller="Catalog" asp-action="Shop">Каталог</a></li>
         @foreach (var item in Model)
         {
-
             switch (item.BreadCrumbsType)
             {
                 default: throw new InvalidOperationException("Неизвестный тип хлебной крошки");

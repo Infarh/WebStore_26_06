@@ -1,7 +1,43 @@
-﻿@{
+﻿@using WebStore.Controllers
+@using WebStore.Domain.ViewModels.BreadCrumbs
+@{
     Layout = "_Layout";
+
+    var type = Context.Request.Query.ContainsKey("SectionId")
+        ? BreadCrumbsType.Section
+        : Context.Request.Query.ContainsKey("BrandId")
+            ? BreadCrumbsType.Brand
+            : BreadCrumbsType.None;
+
+    var from_type = BreadCrumbsType.Section;
+
+    if ((string) ViewContext.RouteData.Values["action"] == nameof(CatalogController.ProductDetails))
+    {
+        type = BreadCrumbsType.Item;
+    }
+
+    var id = 0;
+    switch (type)
+    {
+        case BreadCrumbsType.None: break;
+        case BreadCrumbsType.Section:
+            id = int.Parse(Context.Request.Query["SectionId"].ToString());
+            break;
+        case BreadCrumbsType.Brand:
+            id = int.Parse(Context.Request.Query["BrandId"].ToString());
+            break;
+        case BreadCrumbsType.Item:
+            if (Context.Request.Query.ContainsKey("FromBrand"))
+            {
+                from_type = BreadCrumbsType.Brand;
+            }
+            id = int.Parse(Context.Request.Query["id"].ToString());
+            break;
+        default:
+            throw new ArgumentOutOfRangeException();
+    }
 }
 
-@await Component.InvokeAsync("BreadCrumbs")
+@await Component.InvokeAsync("BreadCrumbs", new { Type = type, id, FromType = from_type })
 
 @RenderBody()

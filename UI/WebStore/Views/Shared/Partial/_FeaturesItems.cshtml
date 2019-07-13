@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<WebStore.Domain.ViewModels.Product.ProductViewModel>
+@{
+    var is_brand = Context.Request.Query.ContainsKey("BrandId");
+}
 
 <div class="features_items">
     <!--features_items-->
-    <h2 class="title text-center">Features Items</h2>
+    <h2 class="title text-center">Товары</h2>
 
     @foreach (var product in Model)
     {
@@ -21,7 +24,14 @@
                     <div class="product-overlay">
                         <div class="overlay-content">
                             <h2>@product.Price.ToString("C")</h2>
-                            <p><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="@product.Id">@product.Name</a></p>
+                            @if (is_brand)
+                            {
+                                <p><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="@product.Id" asp-route-FromBrand="true">@product.Name</a></p>
+                            }
+                            else
+                            {
+                                <p><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="@product.Id">@product.Name</a></p>
+                            }
                             <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id"
                                class="btn btn-default add-to-cart">
                                 <i class="fa fa-shopping-cart"></i>Добавить в корзину
