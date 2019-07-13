@@ -17,6 +17,7 @@ namespace WebStore.Services.Map
             dto.Order = product.Order;
             dto.ImageUrl = product.ImageUrl;
             dto.Brand = product.Brand.ToDTO();
+            dto.Section = product.Section.ToDTO();
             return dto;
         }
 
@@ -30,6 +31,8 @@ namespace WebStore.Services.Map
             product.ImageUrl = dto.ImageUrl;
             product.BrandId = dto.Brand?.Id;
             product.Brand = dto.Brand.ToBrand();
+            product.SectionId = dto.Section.Id;
+            product.Section = dto.Section.ToSection();
             return product;
         }
 
