@@ -60,7 +60,9 @@
         $(function () {
             Cart.init({
                 addToCartLink: "@Url.Action("AddToCartAPI", "Cart")",
-                getCartViewLink: "@Url.Action("GetCartViewAPI", "Cart")"
+                getCartViewLink: "@Url.Action("GetCartViewAPI", "Cart")",
+                removeFromCartLink: "@Url.Action("RemoveFromCartAPI", "Cart")",
+                decrementLink: "@Url.Action("DecrementFromCartAPI", "Cart")"
             });
         });
     </script>

@@ -62,6 +62,24 @@ namespace WebStore.Controllers
             return Json(new { id, message = $"Товар {id} добавлен в корзину" });
         }
 
+        public IActionResult DecrementFromCartAPI(int id)
+        {
+            _CartService.DecrementFromCart(id);
+            return Json(new { id, message = $"Количество товаров {id} в корзине уменьшено на 1" });
+        }
+
+        public IActionResult RemoveFromCartAPI(int id)
+        {
+            _CartService.RemoveFromCart(id);
+            return Json(new { id, message = $"Товар {id} удалён из корзины" });
+        }
+
+        public IActionResult RemoveAllAPI()
+        {
+            _CartService.RemoveAll();
+            return Json(new {message = "Корзина очищена"});
+        }
+
         #endregion
 
         [HttpPost, ValidateAntiForgeryToken]
