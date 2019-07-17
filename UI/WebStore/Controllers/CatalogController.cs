@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Products;
 using WebStore.Domain.ViewModels.Product;
@@ -14,25 +15,31 @@ namespace WebStore.Controllers
     public class CatalogController : Controller
     {
         private readonly IProductData _ProductData;
+        private readonly IConfiguration _Configuration;
 
-        public CatalogController(IProductData ProductData)
+        public CatalogController(IProductData ProductData, IConfiguration Configuration)
         {
             _ProductData = ProductData;
+            _Configuration = Configuration;
         }
 
-        public IActionResult Shop(int? SectionId, int? BrandId)
+        public IActionResult Shop(int? SectionId, int? BrandId, int Page = 1)
         {
-            var products = _ProductData.GetProducts(new ProductFilter
+            var page_size = int.Parse(_Configuration["PageSize"]);
+
+            var paged_products = _ProductData.GetProducts(new ProductFilter
             {
                 SectionId = SectionId,
-                BrandId = BrandId
+                BrandId = BrandId,
+                Page = Page,
+                PageSize = page_size
             });
 
             var catalog_model = new CatalogViewModel
             {
                 BrandId = BrandId,
                 SectionId = SectionId,
-                Products = products
+                Products = paged_products.Products
                    .Select(p => new ProductViewModel
                     {
                         Id = p.Id,
@@ -41,8 +48,13 @@ namespace WebStore.Controllers
                         Order = p.Order,
                         Price = p.Price,
                         ImageUrl = p.ImageUrl
-                    })
-                   //.Select(ProductViewModelMapper.CreateViewModel)
+                    }),
+                PageModel = new PageViewModel
+                {
+                    PageSize = page_size,
+                    PageNumber = Page,
+                    TotalItems = paged_products.TotalCount
+                }
             };
 
             return View(catalog_model);
