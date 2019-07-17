@@ -130,7 +130,7 @@ namespace WebStore.Services.Tests
             var cart_service = new CartService(product_data_mock.Object, cart_store_mock.Object);
 
             cart_service.RemoveAll();
-            
+
             Assert.Empty(cart.Items);
         }
 
@@ -206,10 +206,10 @@ namespace WebStore.Services.Tests
             {
                 new ProductDTO
                 {
-                    Id = 1, 
+                    Id = 1,
                     Name = "Product 1",
                     ImageUrl = "Image1.png",
-                    Order = 0, 
+                    Order = 0,
                     Price = 1.1m
                 },
                 new ProductDTO
@@ -225,7 +225,7 @@ namespace WebStore.Services.Tests
             var product_data_mock = new Mock<IProductData>();
             product_data_mock
                .Setup(c => c.GetProducts(It.IsAny<ProductFilter>()))
-               .Returns(products);
+               .Returns(new PagedProductsDTO { Products = products, TotalCount = products.Count });
 
             var cart_store_mock = new Mock<ICartStore>();
             cart_store_mock

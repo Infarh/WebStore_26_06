@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebStore.Domain.DTO.Product.ProductDTO>
+﻿@model WebStore.Domain.DTO.Product.PagedProductsDTO
 @{
     ViewData["Title"] = "Список товаров";
 }
@@ -10,18 +10,18 @@
 <table class="table">
     <thead>
         <tr>
-            <td>@Html.DisplayNameFor(product => product.Id)</td>
-            <td>@Html.DisplayNameFor(product => product.Name)</td>
-            <td>@Html.DisplayNameFor(product => product.Order)</td>
+            <td>@Html.DisplayNameFor(product => product.Products.First().Id)</td>
+            <td>@Html.DisplayNameFor(product => product.Products.First().Name)</td>
+            <td>@Html.DisplayNameFor(product => product.Products.First().Order)</td>
             @*<td>@Html.DisplayNameFor(product => product.SectionId)</td>*@
             @*<td>@Html.DisplayNameFor(product => product.BrandId)</td>*@
-            <td>@Html.DisplayNameFor(product => product.ImageUrl)</td>
-            <td>@Html.DisplayNameFor(product => product.Price)</td>
+            <td>@Html.DisplayNameFor(product => product.Products.First().ImageUrl)</td>
+            <td>@Html.DisplayNameFor(product => product.Products.First().Price)</td>
             <td></td>
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in Model)
+        @foreach (var product in Model.Products)
         {
             <tr>
                 <td>@Html.DisplayFor(p => product.Id)</td>

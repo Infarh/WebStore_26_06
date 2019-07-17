@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.DTO.Order;
 using WebStore.Domain.ViewModels.Cart;
@@ -31,6 +28,12 @@ namespace WebStore.Controllers
             return View(model);
         }
 
+        public IActionResult AddToCart(int id)
+        {
+            _CartService.AddToCart(id);
+            return RedirectToAction("Details");
+        }
+
         public IActionResult DecrementFromCart(int id)
         {
             _CartService.DecrementFromCart(id);
@@ -49,11 +52,35 @@ namespace WebStore.Controllers
             return RedirectToAction("Details");
         }
 
-        public IActionResult AddToCart(int id)
+        #region ajax api
+
+        public IActionResult GetCartViewAPI() => ViewComponent("Cart");
+
+        public IActionResult AddToCartAPI(int id)
         {
             _CartService.AddToCart(id);
-            return RedirectToAction("Details");
+            return Json(new { id, message = $"Товар {id} добавлен в корзину" });
         }
+
+        public IActionResult DecrementFromCartAPI(int id)
+        {
+            _CartService.DecrementFromCart(id);
+            return Json(new { id, message = $"Количество товаров {id} в корзине уменьшено на 1" });
+        }
+
+        public IActionResult RemoveFromCartAPI(int id)
+        {
+            _CartService.RemoveFromCart(id);
+            return Json(new { id, message = $"Товар {id} удалён из корзины" });
+        }
+
+        public IActionResult RemoveAllAPI()
+        {
+            _CartService.RemoveAll();
+            return Json(new {message = "Корзина очищена"});
+        }
+
+        #endregion
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult CheckOut(OrderViewModel model)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
@@ -27,27 +28,35 @@ namespace WebStore.Services.SQL
 
         public Brand GetBrandById(int id) => _db.Brands.FirstOrDefault(b => b.Id == id);
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
+        public PagedProductsDTO GetProducts(ProductFilter Filter)
         {
             IQueryable<Product> products = _db.Products;
-            if (Filter is null)
-                return products
-                   .AsEnumerable()
-                   .Select(ProductProductDTO.ToDTO);
 
-            if (Filter.SectionId != null)
+            if (Filter?.SectionId != null)
                 products = products.Where(product => product.SectionId == Filter.SectionId);
 
-            if (Filter.BrandId != null)
+            if (Filter?.BrandId != null)
                 products = products.Where(product => product.BrandId == Filter.BrandId);
 
-            return products.AsEnumerable().Select(ProductProductDTO.ToDTO);
+            var total_count = products.Count();
+
+            if (Filter?.PageSize != null)
+                products = products
+                   .Skip((Filter.Page - 1) * (int) Filter.PageSize)
+                   .Take((int) Filter.PageSize);
+
+            return new PagedProductsDTO
+            {
+                Products = products.AsEnumerable().ToDTO(),
+                TotalCount = total_count
+            };
         }
 
         public ProductDTO GetProductById(int id) =>
             _db.Products
                .Include(product => product.Brand)
                .Include(product => product.Section)
-               .FirstOrDefault(product => product.Id == id)?.ToDTO();
+               .FirstOrDefault(product => product.Id == id)
+               .ToDTO();
     }
 }
