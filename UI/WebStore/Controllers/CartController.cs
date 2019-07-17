@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.DTO.Order;
 using WebStore.Domain.ViewModels.Cart;
@@ -54,6 +51,16 @@ namespace WebStore.Controllers
             _CartService.RemoveAll();
             return RedirectToAction("Details");
         }
+
+        #region ajax api
+
+        public IActionResult AddToCartAPI(int id)
+        {
+            _CartService.AddToCart(id);
+            return Json(new { id, message = $"Товар {id} добавлен в корзину" });
+        }
+
+        #endregion
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult CheckOut(OrderViewModel model)
