@@ -41,10 +41,13 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/jquery.scrollUp.min.js"></script>
 
+    <script src="~/js/Cart/CartLogic.js" asp-append-version="true"></script>
+
     <script src="~/js/jquery.prettyPhoto.js" asp-append-version="true"></script>
 
     <environment include="Development">
-        @*<script src="~/js/price-range.js" asp-append-version="true"></script>
+        @*
+            <script src="~/js/price-range.js" asp-append-version="true"></script>
             <script src="~/js/main.js" asp-append-version="true"></script>*@
 
         <script src="~/js/site.js" asp-append-version="true"></script>
@@ -53,7 +56,14 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
-
+    <script>
+        $(function () {
+            Cart.init({
+                addToCartLink: "@Url.Action("AddToCartAPI", "Cart")",
+                getCartViewLink: "@Url.Action("GetCartViewAPI", "Cart")"
+            });
+        });
+    </script>
 
     @RenderSection("Scripts", false)
 </body>

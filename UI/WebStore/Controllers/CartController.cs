@@ -54,6 +54,8 @@ namespace WebStore.Controllers
 
         #region ajax api
 
+        public IActionResult GetCartViewAPI() => ViewComponent("Cart");
+
         public IActionResult AddToCartAPI(int id)
         {
             _CartService.AddToCart(id);
