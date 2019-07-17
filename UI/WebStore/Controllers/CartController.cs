@@ -31,6 +31,12 @@ namespace WebStore.Controllers
             return View(model);
         }
 
+        public IActionResult AddToCart(int id)
+        {
+            _CartService.AddToCart(id);
+            return RedirectToAction("Details");
+        }
+
         public IActionResult DecrementFromCart(int id)
         {
             _CartService.DecrementFromCart(id);
@@ -46,12 +52,6 @@ namespace WebStore.Controllers
         public IActionResult RemoveAll()
         {
             _CartService.RemoveAll();
-            return RedirectToAction("Details");
-        }
-
-        public IActionResult AddToCart(int id)
-        {
-            _CartService.AddToCart(id);
             return RedirectToAction("Details");
         }
 

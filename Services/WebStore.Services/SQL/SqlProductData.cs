@@ -30,24 +30,21 @@ namespace WebStore.Services.SQL
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {
             IQueryable<Product> products = _db.Products;
-            if (Filter is null)
-                return products
-                   .AsEnumerable()
-                   .Select(ProductProductDTO.ToDTO);
 
-            if (Filter.SectionId != null)
+            if (Filter?.SectionId != null)
                 products = products.Where(product => product.SectionId == Filter.SectionId);
 
-            if (Filter.BrandId != null)
+            if (Filter?.BrandId != null)
                 products = products.Where(product => product.BrandId == Filter.BrandId);
 
-            return products.AsEnumerable().Select(ProductProductDTO.ToDTO);
+            return products.AsEnumerable().ToDTO();
         }
 
         public ProductDTO GetProductById(int id) =>
             _db.Products
                .Include(product => product.Brand)
                .Include(product => product.Section)
-               .FirstOrDefault(product => product.Id == id)?.ToDTO();
+               .FirstOrDefault(product => product.Id == id)
+               .ToDTO();
     }
 }
