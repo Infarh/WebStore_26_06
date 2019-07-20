@@ -4,7 +4,7 @@ namespace WebStore.Domain.ViewModels.Account
 {
     public class RegistrerUserViewModel
     {
-        [Display(Name = "Имя пользвоателя"), MaxLength(256, ErrorMessage = "Максимальная длина 256 символов")]
+        [Display(Name = "Имя пользвоателя"), Required, MaxLength(256, ErrorMessage = "Максимальная длина 256 символов")]
         public string UserName { get; set; }
 
         [Display(Name = "Пароль"), Required, DataType(DataType.Password)]
