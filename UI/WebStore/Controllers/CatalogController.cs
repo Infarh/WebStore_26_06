@@ -77,5 +77,31 @@ namespace WebStore.Controllers
                 Brand = product.Brand?.Name
             });
         }
+
+        public IActionResult GetFiltredItems(int? SectionId, int? BrandId, int Page = 1)
+        {
+            var products = GetProducts(SectionId, BrandId, Page);
+            return PartialView("Partial/_FeaturesItems", products);
+        }
+
+        private IEnumerable<ProductViewModel> GetProducts(int? SectionId, int? BrandId, int Page)
+        {
+            var products = _ProductData.GetProducts(new ProductFilter
+            {
+                BrandId = BrandId,
+                SectionId = SectionId,
+                Page = Page,
+                PageSize = int.Parse(_Configuration["PageSize"])
+            });
+            return products.Products.Select(p => new ProductViewModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                Order = p.Order,
+                ImageUrl = p.ImageUrl,
+                Brand = p.Brand?.Name ?? string.Empty
+            });
+        }
     }
 }

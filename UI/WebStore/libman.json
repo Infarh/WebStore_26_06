@@ -52,6 +52,10 @@
         "additional-methods.min.js",
         "additional-methods.js"
       ]
+    },
+    {
+      "library": "jquery-loading-overlay@2.1.6",
+      "destination": "wwwroot/lib/jquery-loading-overlay/"
     }
   ]
 }
