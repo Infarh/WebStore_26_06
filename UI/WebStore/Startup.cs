@@ -15,6 +15,7 @@ using WebStore.Clients.Values;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Domain.Models;
+using WebStore.Hubs;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
@@ -37,6 +38,8 @@ namespace WebStore
         {
             //services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConection")));
             //services.AddTransient<WebStoreContextInitializer>();
+
+            services.AddSignalR();
 
             services.AddSingleton<IEmployeesData, EmployeesClient>();
             services.AddScoped<IProductData, ProductsClient>();
@@ -139,6 +142,8 @@ namespace WebStore
             //app.UseWelcomePage("/Welcome");
 
             app.UseAuthentication();
+
+            app.UseSignalR(routes => routes.MapHub<InformationHub>("/info"));
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
 
