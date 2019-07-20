@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Ненавязчивый Ajax!</h3>
+
+<div class="row">
+    <div class="col-sm-3">
+        <h4>Рендер на стороне сервера</h4>
+        <a href="#" data-ajax="true"
+           data-ajax-url="@Url.Action("GetTestView", "AjaxTest")"
+           data-ajax-update="#ServerSideResultPanel"
+           data-ajax-loading="#ServeriSideSpinner">
+            Загрузка
+        </a>
+        <span id="ServeriSideSpinner" style="display: none">
+            <i class="fa fa-spinner fa-spin"></i>
+        </span>
+        <div id="ServerSideResultPanel"></div>
+    </div>
+
+    <div class="col-sm-3">
+        <h4>Рендер на стороне клиента</h4>
+        <a href="#" data-ajax="true"
+           data-ajax-url="@Url.Action("GetJSON", "AjaxTest", new { id = 123, msg = "Hello World!" })"
+           data-ajax-loading="#ClientSideSpinner"
+           data-ajax-success="OnDataLoaded">
+            Загрузка
+        </a>
+        <span id="ClientSideSpinner" style="display: none">
+            <i class="fa fa-spinner fa-spin"></i>
+        </span>
+        <div id="ClientSideResultPanel"></div>
+
+    </div>
+
+    <div class="col-sm-3">
+        <h4>Рендер с помощью JS</h4>
+        <a href="#" id="LoadDataButton">Загрузка</a>
+        <div id="JSResultPanel"></div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
+    
+    <script>
+        OnDataLoaded = function(data) {
+            var panel = $("#ClientSideResultPanel");
+            panel.empty();
+            panel.append(data.message);
+            panel.append(data.serverTime);
+        };
+
+        $("#LoadDataButton").click(() => {
+            console.log("Sending data to server...");
+
+            $.get("@Url.Action("GetJSON", "AjaxTest")", { id: 321, msg: "Test message!!!" })
+                .done(data => {
+                    const panel = $("#JSResultPanel");
+                    panel.empty();
+                    panel.append(data.message);
+                    panel.append(data.serverTime);
+                })
+                .fail(() => console.log("Ajax request fail"));
+        });
+
+    </script>
+}
