@@ -101,18 +101,23 @@
                                     <li><a is-active-route asp-controller="Home" asp-action="BlogSingle">Блог</a></li>
                                 </ul>
                             </li>
-                            <li><a is-active-route asp-controller="Home" asp-action="Error404">Ошибка 404</a></li>
                             <li><a is-active-route asp-controller="Home" asp-action="ContactUs">Контакты</a></li>
                             <li><a is-active-route asp-controller="Employes" asp-action="Index">Сотрудники</a></li>
-                            <li><a is-active-route asp-controller="WebAPITest" asp-action="Index">WebAPI</a></li>
+                            <li class="dropdown">
+                                <a href="#">Тест <i class="fa fa-question"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a is-active-route asp-controller="WebAPITest" asp-action="Index">WebAPI</a></li>
+                                    <li><a is-active-route asp-controller="AjaxTest" asp-action="Index">Ajax</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                @*<div class="col-sm-3">
                     <div class="search_box pull-right">
                         <input type="text" placeholder="Поиск" />
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div><!--/header-bottom-->
