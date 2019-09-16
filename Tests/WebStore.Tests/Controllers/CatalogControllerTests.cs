@@ -132,6 +132,7 @@ namespace WebStore.Tests.Controllers
                 });
 
             var configuration_mock = new Mock<IConfiguration>();
+            configuration_mock.Setup(cfg => cfg[It.IsAny<string>()]).Returns("3");
 
             var controller = new CatalogController(product_data_mock.Object, configuration_mock.Object);
 
