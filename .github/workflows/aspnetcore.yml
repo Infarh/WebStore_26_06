@@ -38,7 +38,7 @@ jobs:
     
     - uses: actions/upload-artifact@master
       with:
-        name: release-${{ matrix.os }}
+        name: release-webstore-${{ matrix.os }}
         path: UI/WebStore/bin/Release
 
   build-api:
@@ -58,5 +58,5 @@ jobs:
     
     - uses: actions/upload-artifact@master
       with:
-        name: release-${{ matrix.os }}
+        name: release-api-${{ matrix.os }}
         path: Services/WebStore.ServiceHosting/bin/Release
