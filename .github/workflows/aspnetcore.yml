@@ -20,6 +20,7 @@ jobs:
       run: |
         dotnet build --configuration Debug
         dotnet test
+        
   build:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -35,3 +36,7 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     
+    - uses: actions/upload-artifact@master
+      with:
+        name: release-${{ matrix.os }}
+        path: WebStore_26_06/UI/WebStore/bin/Release
