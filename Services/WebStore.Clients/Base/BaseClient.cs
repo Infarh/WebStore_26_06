@@ -57,6 +57,28 @@ namespace WebStore.Clients.Base
 
         protected HttpResponseMessage Delete(string url) => DeleteAsync(url).Result;
 
-        public void Dispose() => _Client.Dispose();
+        // Dispose() calls Dispose(true)
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // NOTE: Leave out the finalizer altogether if this class doesn't
+        // own unmanaged resources, but leave the other methods
+        // exactly as they are.
+        ~BaseClient()
+        {
+            // Finalizer calls Dispose(false)
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _client?.Dispose();
+            }
+        }
     }
 }
